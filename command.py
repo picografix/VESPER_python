@@ -1,12 +1,13 @@
 import os
 import argparse
+from CMD import CMD
+cmd  = CMD()
 
-
-def input(cmd):
+def input(cmd=cmd):
     parser = argparse.ArgumentParser(description='Run Vesper')
-    parser.add_argument('-i', '--filename', required=True, action='store', dest='filename',
+    parser.add_argument('-i', '--filename', action='store', dest='filename',
                         help='Required. Name of the reference map file.')
-    parser.add_argument('-a', '--file1', required=True, action='store', dest='file1',
+    parser.add_argument('-a', '--file1', action='store', dest='file1',
                         help='Required. Name of the target map file.')
     # parser.add_argument('-b', required = True, action = 'store', dest = 'vesper_result', help = 'Required. Name of the result file from VESPER.')
     # parser.add_argument('-odir', action = 'store', dest = 'out_dir', help = 'Optional. Directory for the transformed target map files. If not specified, the transformed target map files would be written to the current directory')

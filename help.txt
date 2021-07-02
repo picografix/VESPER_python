@@ -1,0 +1,2 @@
+./VESPER -a ./example_data/emd_8724.map -b ./example_data/emd_8409.map -t 0.04 -T
+0.048 -s 7 -A 30 -c 5 -S > ./example_data/8724_8409_s7a30.pdb
