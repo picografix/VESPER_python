@@ -25,3 +25,29 @@ class CMD:
     self.Emode=False;
     self.file1="Data\emd_8097.mrc"
     self.file2="Data\ChainA_simulated_resample.mrc"
+
+class mrc_obj:
+    def __init__(self, path):
+        mrc = mrcfile.open(path)
+        data = mrc.data
+        header = mrc.header
+        self.xdim = int(header.nx)
+        self.ydim = int(header.ny)
+        self.zdim = int(header.nz)
+        self.xwidth = mrc.voxel_size.x
+        self.ywidth = mrc.voxel_size.y
+        self.zwidth = mrc.voxel_size.z
+        self.cent = [
+            self.xdim * 0.5,
+            self.ydim * 0.5,
+            self.zdim * 0.5,
+        ]
+        self.orig = {"x": header.origin.x, "y": header.origin.y, "z": header.origin.z}
+        self.data = copy.deepcopy(data)
+        self.dens = data.flatten()
+        self.vec = np.zeros((self.xdim * self.ydim * self.zdim, 3))
+        self.dsum = None
+        self.Nact = None
+        self.ave = None
+        self.std_norm_ave = None
+        self.std = None
