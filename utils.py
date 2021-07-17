@@ -178,7 +178,7 @@ def fastVEC(mrc1, mrc2, dreso=16.0):
 
     list_d = []
 
-    for x in tqdm(range(mrc2.xdim)):
+    for x in tqdm(range(mrc2.xdim),disable=True):
         for y in range(mrc2.ydim):
             for z in range(mrc2.zdim):
                 stp = [0] * 3
@@ -542,7 +542,7 @@ def search_map_fft(mrc_target, mrc_search, TopN=10, ang=30, is_eval_mode=False):
 
     XX = []
 
-    for angle in tqdm(angle_comb, desc="FFT"):
+    for angle in tqdm(angle_comb, desc="FFT", disable=True):
         rot_mrc_vec = mrc_angle_dict[tuple(angle)]
 
         x2 = copy.deepcopy(rot_mrc_vec[..., 0])
