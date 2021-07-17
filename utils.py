@@ -501,7 +501,7 @@ def search_map_fft(mrc_target, mrc_search, TopN=10, ang=30, is_eval_mode=False):
     mrc_angle_dict = {}
 
     with concurrent.futures.ThreadPoolExecutor(
-        max_workers=os.cpu_count() + 4
+        max_workers=os.cpu_count() + 16
     ) as executor:
         trans_vec = {
             executor.submit(
