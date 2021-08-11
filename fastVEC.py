@@ -21,5 +21,5 @@ def write_chimera_command(command_file, map1, map2, r_vector, t_vector, output_n
 
 
 # commands to run
-# volume #0.1 voxelSize 0.3
-# vop gaussian #0.1 sdev 0.3 model #2
+# volume #0.1 voxelSize 0.1428
+# vop gaussian #0.1 sdev 0.1 model #2
