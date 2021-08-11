@@ -1,25 +1,44 @@
-import os
-import argparse
+import time
+from chimera import runCommand as rc
 
-def write_chimera_command(command_file, map1, map2, r_vector, t_vector, output_name_1, output_name_2):
-	command_file = open(command_file, 'w')
-	command_file.write('from chimera import runCommand as rc\n\n')
-	command_file.write('rc("open #0' + map1 + '")\n')
-	command_file.write('rc("open #1' + map2 + '")\n')
+start = time.time() 
 
-	# rotate map
-    command_file.write('rc(volume #0 voxelSize 0.3)\n')
-    command_file.write('rc(vop gaussian #0 sdev 0.3 model #2)\n')
-    command_file.write('rc(volume #2 voxelSize 0.3)\n')
-    command_file.write('rc(vop gaussian #1 sdev 0.3 model #3)\n')
+map1 = "./data/emd_8097.mrc"
+map2 = "./data/ChainA_simulated_resample.mrc"
+output_name_1 = "./data/emd_8097_N1.mrc"
+output_name_2 = "./data/ChainA_N1.mrc"
 
-	# save transformed map
-	# command_file.write('rc("vop #1 resample onGrid #0")\n')
-    command_file.write('rc("volume #2 save ' + output_name_1 + '")\n')
-	command_file.write('rc("volume #3 save ' + output_name_2 + '")\n')
-	command_file.close()
+print("step1 ")
+c1 = "open #0 " + map1
+c2 = "open #1 " + map2 
+rc(c1)
 
+rc(c2)
+print("Reducing the resolution")
+# rotate map
+rc("volume #0 voxelSize 0.1428")
+rc("vop gaussian #0 sdev 0.3 model #2")
+rc("volume #2 voxelSize 0.1428")
+rc("vop gaussian #1 sdev 0.3 model  #3")
+print("Saving the mrc files")
+
+s1 = "volume #2 save " + output_name_1
+s2 = "volume #3 save "  +  output_name_2
+rc( s1)
+rc( s2)
+
+print("finish")
 
 # commands to run
+<<<<<<< HEAD
 # volume #0.1 voxelSize 0.1428
 # vop gaussian #0.1 sdev 0.1 model #2
+=======
+# volume #0.1 voxelSize 0.3
+# vop gaussian #0.1 sdev 0.3 model #2
+
+# chimera --silent --nogui fastVEC.py
+
+end = time.time()
+print("runtime="    ,end-start)
+>>>>>>> a32eedfc83d5f13bdcebd6ffc403b7245d2a3e94
