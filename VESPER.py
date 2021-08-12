@@ -38,8 +38,8 @@ mrc2 = mrc_obj(cmd.file2)
 print("mrc Initialized")
 # set vox size
 
-mrc1, mrc_N1 = mrc_set_vox_size(mrc1)
-mrc2, mrc_N2 = mrc_set_vox_size(mrc2)
+mrc1, mrc_N1 = mrc_set_vox_size(mrc1,voxel_size=cmd.ssize)
+mrc2, mrc_N2 = mrc_set_vox_size(mrc2,voxel_size=cmd.ssize)
 
 if mrc_N1.xdim > mrc_N2.xdim:
     mrc_N2.xdim = mrc_N2.ydim = mrc_N2.zdim = mrc_N1.xdim
@@ -57,16 +57,16 @@ else:
 print("set voc size complete")
 # run fastVEC
 print("FastVec Started")
-mrc_N1 = fastVEC(mrc1, mrc_N1)
-mrc_N2 = fastVEC(mrc2, mrc_N2)
+mrc_N1 = fastVEC(mrc1, mrc_N1,dreso=cmd.dreso)
+mrc_N2 = fastVEC(mrc2, mrc_N2,dreso=cmd.dreso)
 print("FastVec Complete")
 # rotate mrc
-print("Mrc Rotation Started")
-mrc = rot_mrc(mrc_N2.data, mrc_N2.vec, (48, 48, 48), [0, 0, 30])
-print("Mrc Rotation Complete")
+# print("Mrc Rotation Started")
+# mrc = rot_mrc(mrc_N2.data, mrc_N2.vec, (48, 48, 48), [0, 0, 30])
+# print("Mrc Rotation Complete")
 #run  search map fftw
 print("Search Map Started")
-score_list = search_map_fft(mrc_N1, mrc_N2, ang=30)
+score_list = search_map_fft(mrc_N1, mrc_N2, ang=cmd.ang, mode="VecProduct")
 print("Search Map End")
 print(sorted(score_list, key=lambda x: x[1], reverse=True)[:10])
 
